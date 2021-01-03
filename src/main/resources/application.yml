@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: vote
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    name: defaultDataSource
+    url: jdbc:mysql://localhost:3306/dgvote?serverTimezone=UTC
+    username: root
+    password: 727742309
+  thymeleaf:
+    cache: false
+
+server:
+  port: 80
+
+mybatis:
+  type-aliases-package: com.dg.vote.model
+  mapper-locations: classpath:mapper/*.xml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+

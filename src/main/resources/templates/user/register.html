@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8">
+    <title>登录</title>
+
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/validate.js}"></script>
+
+    <link rel="canonical" th:href="@{/https://getbootstrap.com/docs/4.5/examples/sign-in/}">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
+    <link th:href="@{/css/dg.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<form class="form-signin needs-validation" method="post" th:action="@{/user/register}" novalidate>
+    <img class="mb-4" th:src="@{/img/bootstrap-solid.svg}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">注册</h1>
+    <div class="alert alert-danger" role="alert" th:if="${msg} != null" th:text="${msg}">
+    </div>
+    <label for="inputName" class="sr-only">Nickname</label>
+    <input type="text" id="inputName" class="form-control" placeholder="昵称" required autofocus name="nickname">
+    <div class="invalid-feedback">
+        请输入昵称
+    </div>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input type="text" id="inputUsername" class="form-control" placeholder="用户名" required autofocus name="username">
+    <div class="invalid-feedback">
+        请输入用户名
+    </div>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required name="password">
+    <div class="invalid-feedback">
+        请输入密码
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+        <label class="form-check-label" for="invalidCheck">
+            我同意&nbsp;<a href="#" class="noLine">使用条款</a>
+        </label>
+        <div class="invalid-feedback">
+            您必须同意使用条款才能注册
+        </div>
+    </div>
+<!--    <div class="checkbox mb-3">-->
+<!--        <label>-->
+<!--            <input type="checkbox">我同意&nbsp;<a href="#" class="noLine">使用条款</a>-->
+<!--        </label>-->
+<!--    </div>-->
+    <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+    <button class="btn btn-lg btn-secondary btn-block" type="button"><a th:href="@{/user/toLogin}" class="noLine">取消</a></button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>
+</body>
+</html>

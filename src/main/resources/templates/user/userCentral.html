@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>用户中心</title>
+
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/validate.js}"></script>
+
+    <link rel="canonical" th:href="@{/https://getbootstrap.com/docs/4.5/examples/dashboard/}">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+  </head>
+  <body>
+  <div th:replace="~{user/common/public::topbar}"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div th:replace="user/common/public::sidebar(activeUri='main.html')"></div>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="pt-3 pb-2 mb-3">
+        <h2>账户设置</h2>
+          <ul class="nav nav-tabs dark">
+            <li class="nav-item active">
+              <a class="nav-link" href="#userInfo" data-toggle="tab">个人资料</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#updatePwd" data-toggle="tab">修改密码</a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade in active" id="userInfo">
+            <p>菜鸟教程是一个提供最新的web技术站点，本站免费提供了建站相关的技术文档，帮助广大web技术爱好者快速入门并建立自己的网站。菜鸟先飞早入行——学的不仅是技术，更是梦想。</p>
+          </div>
+          <div class="tab-pane fade" id="updatePwd">
+            <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple
+              TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
+          </div>
+        </div>
+    </main>
+
+</div>
+      <script th:src="@{/js/jquery-3.5.1.js}"></script>
+      <script th:src="@{/js/bootstrap.bundle.js}"></script>
+      <script th:src="@{/js/feather.min.js}"></script>
+      <script th:src="@{/js/Chart.min.js}"></script>
+      <script th:src="@{/js/dashboard.js}"></script>
+  </body>
+</html>

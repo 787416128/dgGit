@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dg.vote.dao.VoteMapper">
+
+    <select id="queryVoteByUserNickname" parameterType="string" resultType="Vote">
+        select * from vote where user_id = (select id from user where nickname = #{nickname})
+    </select>
+
+    <select id="queryVote" resultType="Vote">
+        select * from vote where is_approve = 1
+    </select>
+
+    <update id="updateVote" parameterType="Vote">
+        update vote set subject = #{subject} where id = #{id}
+    </update>
+
+    <select id="queryVoteById" parameterType="int" resultType="Vote">
+        select * from vote where id = #{id}
+    </select>
+
+    <delete id="deleteVote" parameterType="int">
+         delete from vote where id = #{id}
+    </delete>
+
+    <insert id="addVote" parameterType="Vote">
+        insert into vote (subject, content, selection_type, user_id, start_time, end_time, is_over, is_approve)
+        values (#{subject},#{content},#{selection_type},#{user_id},#{start_time},#{end_time},#{is_over},#{is_approve})
+    </insert>
+</mapper>

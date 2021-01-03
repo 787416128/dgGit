@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.thymeleaf.org/thymeleaf-extras-shiro">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>用户中心</title>
+
+    <script th:src="@{/js/vue.js}"></script>
+    <script th:src="@{/js/jquery-3.5.1.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/validate.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.js}"></script>
+
+    <link rel="canonical" th:href="@{/https://getbootstrap.com/docs/4.5/examples/dashboard/}">
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet">
+</head>
+
+<body>
+<div th:insert="~{user/common/public::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="user/common/public::sidebar(activeUri='vote.html')"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="pt-3 pb-2 mb-3">
+                <div class="row">
+                    <h2>投票管理</h2>
+                    <button class="btn btn-primary btn-sm offset-8" data-target="#addModal" data-toggle="modal">创建投票</button>
+                </div>
+<!--                <div class="alert alert-danger" role="alert" th:if="${msg} == ‘删除失败’||${msg} == ‘更改失败’" th:text="${msg}">-->
+<!--                <div class="alert alert-success" role="alert" th:if="${msg} == ‘删除成功’||${msg} == ‘更改成功’" th:text="${msg}">-->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>投票标题</th>
+                            <th>投票时间</th>
+                            <th>审核状态</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="v,vStart:${vList}">
+                        <tr th:switch="${v.getIs_approve}">
+                            <td th:text="${vStart.count}"></td>
+                            <td th:text="${v.getSubject()}"></td>
+                            <td th:text="${v.getContent}"></td>
+                            <td th:case="0">未通过</td>
+                            <td th:case="1">已通过</td>
+                            <td th:case="2">待审核</td>
+                            <td th:text="${v.getIs_over==0?'进行中':'已结束'}"></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editModal"
+                                th:data-target="'#editModal' + ${v.getId}">编辑</button>
+                                <button type="button" class="btn btn-sm btn-danger deleteBtn" data-toggle="modal" data-target="#deleteModal"
+                                        th:data-target="'#deleteModal' + ${v.getId}">删除
+                                </button>
+                                <button type="button" class="btn btn-sm btn-primary deleteBtn" data-toggle="modal" data-target="#countModal"
+                                        th:data-target="'#countModal' + ${v.getId}">统计
+                                </button>
+                            </td>
+                        </tr>
+
+<!--                        @{'/user/vote/update/'+${v.getUser_id} + '/' + ${v.getId}}-->
+
+                        <form th:action="@{/user/vote/update}" method="POST">
+                            <div class="modal fade" id="editModal" th:id="'editModal' + ${v.getId}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <input type="hidden" th:value="${v.getId}" name="id">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editModalLabel">编辑投票</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                                <div class="input-group input-group-sm mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" id="inputGroup-sizing-sm">投票标题</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                                           aria-describedby="inputGroup-sizing-sm" name="subject">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">保存</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+
+                        <form th:action="@{/user/vote/delete}" method="GET">
+                            <div class="modal fade" id="deleteModal" th:id="'deleteModal' + ${v.getId}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <input type="hidden" th:value="${v.getId}" name="id">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">删除投票</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="lead">确认要删除吗？</div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                            <button type="submit" class="btn btn-primary">确认</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <form th:action="@{/user/vote/add}" method="POST">
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">创建投票</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-2">
+                                    <div class="offset-md-2">投票标题:</div>
+                                    <div class="col-6"><input type="text" class="form-control" placeholder="投票标题(必填)" name="subject"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="offset-md-2">开始时间:</div>
+                                    <div class="col-6"><input type="text" class="form-control" placeholder="2021-1-03" name="start_time"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="offset-md-2">截止时间:</div>
+                                    <div class="col-6"><input type="text" class="form-control" placeholder="2021-1-03" name="end_time"></div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="offset-md-2">单选多选:</div>
+                                    <select  class="col-4 form-control ml-3" name="selection_type">
+                                        <option value="0">单选</option>
+                                        <option value="1">多选</option>
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="offset-md-2">投票说明:</div>
+                                    <textarea class="ml-3" rows="6" cols="30" name="content">
+                                    </textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.js}"></script>
+<script th:src="@{/js/feather.min.js}"></script>
+<script th:src="@{/js/dashboard.js}"></script>
+</body>
+
+</html>
