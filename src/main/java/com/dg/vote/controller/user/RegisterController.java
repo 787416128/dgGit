@@ -1,16 +1,12 @@
-package com.dg.vote.cotroller.user;
+package com.dg.vote.controller.user;
 
-import com.dg.vote.dao.UserMapper;
 import com.dg.vote.model.User;
 import com.dg.vote.service.UserService;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.jws.WebParam;
 
 @Controller
 public class RegisterController {

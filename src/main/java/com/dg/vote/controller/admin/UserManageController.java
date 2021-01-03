@@ -1,18 +1,13 @@
-package com.dg.vote.cotroller.admin;
+package com.dg.vote.controller.admin;
 
-import com.dg.vote.model.Admin;
-import com.dg.vote.model.User;
 import com.dg.vote.model.UserVotes;
-import com.dg.vote.model.Vote;
 import com.dg.vote.service.UserService;
-import com.dg.vote.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 

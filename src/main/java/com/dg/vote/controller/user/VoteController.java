@@ -1,14 +1,10 @@
-package com.dg.vote.cotroller.user;
+package com.dg.vote.controller.user;
 
 import com.dg.vote.model.User;
 import com.dg.vote.model.Vote;
 import com.dg.vote.service.VoteService;
-import com.dg.vote.service.VoteServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
